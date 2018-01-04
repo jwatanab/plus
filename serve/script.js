@@ -19,9 +19,8 @@ app.listen(port, () => {
 
 app.get('/show', (req, res) => {
     new User().fetchAll().then((collection) => {
-        console.log((collection.toArray()[0])._previousAttributes)
+        res.json((collection.toArray()[0])._previousAttributes)
     })
-    res.json()
 })
 
 app.use('/', express.static('./pub'))

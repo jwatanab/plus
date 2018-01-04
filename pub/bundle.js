@@ -998,16 +998,19 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = { val: '' };
+        _this.state = { val: '', body: new Array() };
         return _this;
     }
 
     _createClass(App, [{
         key: 'inquiry',
         value: function inquiry(e) {
-            console.log(this.state.val);
+            var _this2 = this;
+
+            /* 推移しない、Ajaxと考えると確かに非同期で画面推移なしで情報を獲得できる  */
             _superagent2.default.get('/show').query({ val: this.state.val }).end(function (err, res) {
                 if (err) return;
+                _this2.setState({ body: res.body });
             });
         }
     }, {
@@ -1016,20 +1019,25 @@ var App = function (_Component) {
             this.setState({ val: e.target.value });
         }
     }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.inquiry();
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement('input', { type: 'text', name: 'ans', onChange: function onChange(e) {
-                        return _this2.line(e);
+                        return _this3.line(e);
                     } }),
                 _react2.default.createElement(
                     'button',
                     { onClick: function onClick(e) {
-                            return _this2.inquiry(e);
+                            return _this3.inquiry(e);
                         } },
                     '\u9001\u4FE1'
                 )
@@ -1040,7 +1048,7 @@ var App = function (_Component) {
     return App;
 }(_react.Component);
 
-(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
 
 /***/ }),
 /* 16 */

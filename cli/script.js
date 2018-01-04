@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
-import ReactDOM, { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import request from 'superagent'
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = { val: '' }
+        this.state = { val: '', body: new Array() }
     }
     inquiry(e) {
+        /* 推移しない、Ajaxと考えると確かに非同期で画面推移なしで情報を獲得できる  */
         request
             .get(`/show`)
             .query({ val: this.state.val })
             .end((err, res) => {
                 if (err) return
-                const r = res.body
-                console.log(r)
+                this.setState({ body: res.body })
             })
     }
     line(e) {
@@ -30,7 +30,7 @@ class App extends Component {
     }
 }
 
-render(
+ReactDOM.render(
     <App />,
     document.getElementById('root')
 )
