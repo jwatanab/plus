@@ -9,8 +9,8 @@ const knex = require('knex')({
     useNullAsDefault: true
 })
 const bookshelf = require('bookshelf')(knex)
-const User = bookshelf.Model.extend({
-    tableName: 'users'
+const Customer = bookshelf.Model.extend({
+    tableName: 'customer'
 })
 
 app.listen(port, () => {
@@ -18,9 +18,14 @@ app.listen(port, () => {
 })
 
 app.get('/show', (req, res) => {
-    new User().fetchAll().then((collection) => {
-        res.json((collection.toArray()[0])._previousAttributes)
+    new Customer().fetchAll().then((collection) => {
+        res.json(collection.toArray())
     })
+})
+
+app.get('/insert', (req, res) => {
+    console.log(req.query)
+    // new Customer(req.body).save().then((modal) => { })
 })
 
 app.use('/', express.static('./pub'))

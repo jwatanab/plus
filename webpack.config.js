@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './cli/script.js',
+    entry: './cli/web.js',
     output: {
         filename: './pub/bundle.js'
     },

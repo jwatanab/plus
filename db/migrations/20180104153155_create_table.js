@@ -1,13 +1,15 @@
 
 
 exports.up = function (knex, Promise) {
-    return knex.schema.hasTable('users').then(function (exists) {
+    return knex.schema.hasTable('customer').then(function (exists) {
         console.log(exists)
         if (!exists) {
-            return knex.schema.createTable('users', function (t) {
+            return knex.schema.createTable('customer', function (t) {
                 t.increments('id').primary()
                 t.string('que', 100)
-                t.string('answer')
+                t.string('time')
+                t.string('age')
+                t.string('remarks')
             })
         } else {
             return new Error("The table already exists")
@@ -16,10 +18,10 @@ exports.up = function (knex, Promise) {
 }
 
 exports.down = function (knex, Promise) {
-    return knex.schema.hasTable('users').then(function (exists) {
+    return knex.schema.hasTable('customer').then(function (exists) {
         console.log(exists)
         if (exists) {
-            return knex.schema.dropTable('users')
+            return knex.schema.dropTable('customer')
         }
     })
 }

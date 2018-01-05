@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header_title">
+        <h2>アンケート回答情報</h2>
+      </div>
+    </div>
+    <!-- D3.js -->
+    <div class="main_content">
+      <table class="content_table">
+        <thead>
+          <th class="table_head">店内の清潔感についてお答えください</th>
+          <th class="table_head">時刻</th>
+          <th class="table_head">年齢</th>
+          <th class="table_head">備考</th>
+        </thead>
+        <tr></tr>
+        <tbody>
+          <td className="table_body">{e.ans}</td>
+          <td className="table_body">{e.time}</td>
+          <td className="table_body">{e.age}</td>
+          <td className="table_body">{e.remarks}</td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

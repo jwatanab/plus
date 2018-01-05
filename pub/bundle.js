@@ -998,7 +998,7 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = { val: '', body: new Array() };
+        _this.state = { items: [] };
         return _this;
     }
 
@@ -1008,38 +1008,90 @@ var App = function (_Component) {
             var _this2 = this;
 
             /* 推移しない、Ajaxと考えると確かに非同期で画面推移なしで情報を獲得できる  */
-            _superagent2.default.get('/show').query({ val: this.state.val }).end(function (err, res) {
+            _superagent2.default.get('/show').end(function (err, res) {
                 if (err) return;
-                _this2.setState({ body: res.body });
+                var result = res.body.map(function (e) {
+                    return _react2.default.createElement(
+                        'tbody',
+                        null,
+                        _react2.default.createElement(
+                            'td',
+                            { className: 'table_body' },
+                            e.que
+                        ),
+                        _react2.default.createElement(
+                            'td',
+                            { className: 'table_body' },
+                            e.time
+                        ),
+                        _react2.default.createElement(
+                            'td',
+                            { className: 'table_body' },
+                            e.age
+                        ),
+                        _react2.default.createElement(
+                            'td',
+                            { className: 'table_body' },
+                            e.remarks
+                        )
+                    );
+                });
+                _this2.setState({ items: result });
             });
         }
     }, {
-        key: 'line',
-        value: function line(e) {
-            this.setState({ val: e.target.value });
-        }
-    }, {
-        key: 'componentWillMount',
-        value: function componentWillMount() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             this.inquiry();
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             return _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement('input', { type: 'text', name: 'ans', onChange: function onChange(e) {
-                        return _this3.line(e);
-                    } }),
+                { className: 'container' },
                 _react2.default.createElement(
-                    'button',
-                    { onClick: function onClick(e) {
-                            return _this3.inquiry(e);
-                        } },
-                    '\u9001\u4FE1'
+                    'div',
+                    { className: 'header' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'header_title' },
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            '\u30A2\u30F3\u30B1\u30FC\u30C8\u56DE\u7B54\u60C5\u5831'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'main_content' },
+                    _react2.default.createElement(
+                        'table',
+                        { className: 'content_table' },
+                        _react2.default.createElement(
+                            'th',
+                            { className: 'table_head' },
+                            '\u5E97\u5185\u306E\u6E05\u6F54\u611F\u306B\u3064\u3044\u3066\u304A\u7B54\u3048\u304F\u3060\u3055\u3044'
+                        ),
+                        _react2.default.createElement(
+                            'th',
+                            { className: 'table_head' },
+                            '\u6642\u523B'
+                        ),
+                        _react2.default.createElement(
+                            'th',
+                            { className: 'table_head' },
+                            '\u5E74\u9F62'
+                        ),
+                        _react2.default.createElement(
+                            'th',
+                            { className: 'table_head' },
+                            '\u5099\u8003'
+                        ),
+                        _react2.default.createElement('tr', null),
+                        this.state.items
+                    )
                 )
             );
         }
